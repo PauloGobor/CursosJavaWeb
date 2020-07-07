@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/Templates/Template.xhtml">
+	<ui:define name="conteudo">
+		<h:form title="Cadastrar Chamado" enctype="multipart/form-data"
+			styleClass="form-horizontal" id="main" class="main" prependId="false">
+			<fieldset>
+				<legend>Adicionar Novo Conteudo</legend>
+
+				<div class="form-group">
+					<h:outputLabel value="Nome" styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:inputText value="#{conteudoCursoBean.conteudo.nome}"
+							styleClass="form-control" id="Conteudo" required="true"
+							style="width:30%" pt:placeholder="Conteudo" />
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<h:outputLabel id="Descricao" value="Descricao: "
+						styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:inputTextarea rows="7" cols="7" styleClass="form-control"
+							value="#{conteudoCursoBean.conteudo.descricao}"
+							pt:placeholder="Descreva aqui os detalhes do seu chamado..." />
+					</div>
+				</div>
+
+
+				<div id="Button" class="col-sm-11">
+					<div class="form-group">
+						<h:commandButton
+							action="#{conteudoCursoBean.salvar(conteudoCursoBean.conteudo)}"
+							value="Cadastrar" type="submit" styleClass="btn btn-success"
+							style="display:inline;margin:0 5px" />
+						<h:commandButton type="reset" value="Apagar"
+							styleClass="btn btn-danger" style="display:inline;margin:05px"></h:commandButton>
+
+					</div>
+				</div>
+
+
+
+
+			</fieldset>
+		</h:form>
+
+
+		<script type="text/javascript">
+
+    $('#main').validate({
+        rules: {
+            'Conteudo': {
+                required: true,
+                minlength: 3
+            }
+        },
+        messages: {	
+            'Conteudo': {
+                required: '* Digite um Conteudo',
+                minlength: '* Por favor, insira pelo menos 3 caracteres'
+            }
+        }
+    });
+   
+</script>
+	</ui:define>
+</ui:composition>
+</html>

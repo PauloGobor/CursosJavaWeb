@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/Templates/Template.xhtml">
+	<ui:define name="conteudo">
+		<h:form title="Lista de Funcionario" enctype="multipart/form-data"
+			styleClass="form-horizontal" id="main" class="main" prependId="false">
+			<fieldset>
+				<legend>Lista de Funcionario</legend>
+				<p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+				<h:commandButton action="CadastrarFuncionario" value="Novo Funcionario"
+					styleClass="btn btn-success" style="display:inline;margin:0 5px">
+				</h:commandButton>
+				<br /> <br />
+
+				<div class="form-group">
+					<h:inputText id="myInput" type="text" styleClass="form-control"
+						style="width:20%" pt:placeholder="Search... " />
+				</div>
+
+				<p:dataTable id="myTable"
+					value="#{funcionarioBean.listarFuncionarios()}" var="funcionario"
+					styleClass="table table-striped"
+					style="margin-top:20px;margin-bottom:15px">
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" N° Identificação " />
+						</f:facet>
+						<h:outputText value="#{funcionario.id}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Nome " />
+						</f:facet>
+						<h:outputText value="#{funcionario.nome}" />
+					</p:column>
+						<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Email " />
+						</f:facet>
+						<h:outputText value="#{funcionario.email}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" CPF " />
+						</f:facet>
+						<h:outputText value="#{funcionario.cpf}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Sexo " />
+						</f:facet>
+						<h:outputText value="#{funcionario.sexo}" />
+					</p:column>
+					
+				
+					<p:column>
+						<f:facet name="header">Chamados</f:facet>
+						<h:commandButton
+							action="#{funcionarioBean.vizulizarChamadosFuncionario()}"
+							value="Visualizar" styleClass="btn btn-info"
+							style="display:inline;margin:05px">
+							<f:param name="idFuncionario" value="#{funcionario.id}" />
+
+						</h:commandButton>
+					</p:column>
+					
+				</p:dataTable>
+			</fieldset>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

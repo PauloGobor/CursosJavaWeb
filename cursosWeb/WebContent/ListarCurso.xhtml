@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+
+<ui:composition template="/Templates/Template.xhtml">
+
+	<ui:define name="conteudo">
+
+		<h:form title="Lista de Cursos" enctype="multipart/form-data"
+			styleClass="form-horizontal" id="main" class="main" prependId="false">
+			<fieldset>
+				<legend>Lista de Cursos</legend>
+
+				<p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+				<h:commandButton action="CadastrarCurso" value="Novo Curso"
+					styleClass="btn btn-success" style="display:inline;margin:0 5px">
+				</h:commandButton>
+				<br /> <br />
+
+				<div class="form-group">
+					<h:inputText id="myInput" type="text" styleClass="form-control"
+						style="width:20%" pt:placeholder="Search... " />
+				</div>
+
+				<p:dataTable id="myTable" value="#{cursoBean.listarCurso()}"
+					var="curso" styleClass="table table-striped"
+					style="margin-top:20px;margin-bottom:15px;" emptyMessage="Nenhum dado encontrado" sortBy="#{curso.nome}">
+
+					<p:column style="width:55px">
+						<f:facet name="header">
+							<h:outputText value="Cont." />
+						</f:facet>
+						<p:rowToggler />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Nome " />
+						</f:facet>
+						<h:outputText value="#{curso.nome}" />
+					</p:column>
+
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Categoria " />
+						</f:facet>
+						<h:outputText value="#{curso.categoria}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Professor " />
+						</f:facet>
+						<h:outputText value="#{curso.professor.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Vagas " />
+						</f:facet>
+						<h:outputText value="#{curso.qtdVagas}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Carga Horaria " />
+						</f:facet>
+						<h:outputText value="#{curso.cargaHoraria}">
+
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Valor " />
+						</f:facet>
+						<h:outputText value="#{curso.valor}">
+							<f:convertNumber currencySymbol="R$" type="currency" />
+						</h:outputText>
+					</p:column>
+
+
+
+					<p:column>
+						<f:facet name="header">Alterar</f:facet>
+						<h:commandButton action="#{cursoBean.detalhar()}" value="Alterar"
+							styleClass="btn btn-warning" style="display:inline;margin:05px">
+							<f:param name="idCurso" value="#{curso.id}" />
+						</h:commandButton>
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">Remover</f:facet>
+						<h:commandButton action="#{cursoBean.excluir(curso.id)}"
+							value="Remover" styleClass="btn btn-danger"
+							style="display:inline;margin:05px">
+						</h:commandButton>
+					</p:column>
+
+					<p:rowExpansion>
+						<p:panelGrid columns="2" columnClasses="label,value"
+							style="width:600px">
+
+							<p:dataTable id="myTable1"
+								value="#{conteudoCursoBean.listarConteudoPorCurso2(curso.id)}"
+								var="conteudo" styleClass="table table-hover table-striped"
+								style="margin-top:20px;margin-bottom:15px">
+								<p:column style="width:50px">
+
+									<f:facet name="header">Desc.</f:facet>
+									<p:rowToggler />
+								</p:column>
+								<p:column>
+
+									<f:facet name="header">Conteudo</f:facet>
+									<h:outputText value="#{conteudo.nome}">
+									</h:outputText>
+								</p:column>
+								<p:rowExpansion>
+
+									<p:panelGrid columns="1" columnClasses="label,value"
+										style="width:600px">
+										<f:facet name="header">Descricao</f:facet>
+										<h:outputText value="Deescrição: #{conteudo.descricao}">
+										</h:outputText>
+									</p:panelGrid>
+								</p:rowExpansion>
+
+							</p:dataTable>
+						</p:panelGrid>
+					</p:rowExpansion>
+
+				</p:dataTable>
+			</fieldset>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/Templates/Template.xhtml">
+	<ui:define name="conteudo">
+
+		<h:form title="Lista de Matricula" enctype="multipart/form-data"
+			styleClass="form-horizontal" id="main" class="main" prependId="false">
+			<fieldset>
+				<legend>Lista de Matricula </legend>
+				<div class="form-group">
+					<h:inputText id="myInput" type="text" styleClass="form-control"
+						style="width:20%" pt:placeholder="Search... " />
+				</div>
+
+				<p:dataTable id="myTables" value="#{matriculaBean.matriculas}"
+					var="matriculaa" styleClass="table table-striped"
+					style="margin-top:20px;margin-bottom:15px">
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" N° Matricula " />
+						</f:facet>
+						<h:outputText value="#{matriculaa.id}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Aluno " />
+						</f:facet>
+						<h:outputText value="#{matriculaa.usuario.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Curso " />
+						</f:facet>
+						<h:outputText value="#{matriculaa.curso.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Professor " />
+						</f:facet>
+						<h:outputText value="#{matriculaa.curso.professor.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Status
+						<h:outputText value=" Status " />
+						</f:facet>
+						<h:outputText value="#{matriculaa.status}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">Detalhes</f:facet>
+						<h:commandButton action="#{matriculaBean.detalhar()}"
+							value="Visualizar" styleClass="btn btn-success"
+							style="display:inline;margin:05px">
+							<f:param name="idMatricula" value="#{matriculaa.id}" />
+						</h:commandButton>
+					</p:column>
+					<p:column>
+					<f:facet name="header">Alterar Status</f:facet>
+					<p:panelGrid columns="2">
+						
+						<h:commandButton action="#{matriculaBean.aprovar()}"
+							value="Aprovar" styleClass="btn btn-success"
+							style="display:inline;margin:0.01px;font-size: 10px;font-weight: 150;">
+							<f:param name="idMatricula" value="#{matriculaa.id}" />
+
+						</h:commandButton>
+						<h:commandButton action="#{matriculaBean.reprovar()}"
+							value="Reprovar" styleClass="btn btn-danger" 
+							style="display:inline;margin:0.01px;font-size: 10px;font-weight: 150;">
+							<f:param name="idMatricula" value="#{matriculaa.id}" />
+
+						</h:commandButton>
+						</p:panelGrid>
+					</p:column>
+
+				</p:dataTable>
+
+			</fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

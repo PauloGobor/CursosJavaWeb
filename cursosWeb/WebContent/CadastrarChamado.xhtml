@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/Templates/Template.xhtml">
+	<ui:define name="conteudo">
+		<h:form title="Cadastrar Chamado" enctype="multipart/form-data"
+			styleClass="form-horizontal" id="main" class="main" prependId="false">
+			<fieldset>
+				<legend>Cadastrar Chamado</legend>
+				<p:messages id="messages" showDetail="false" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+
+				<div class="form-group">
+					<h:outputLabel id="setor" value="Setor: "
+						styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:selectOneMenu value="#{chamadoBean.chamado.setor}"
+							style="width:200px" data-toggle="dropdown"
+							styleClass="form-control radius-none" required="true" requiredMessage="Informe um Setor">
+							<f:selectItem itemLabel="Selecione o Setor"
+								noSelectionOption="true" class="dropdown-item" />
+							<f:selectItem itemLabel="Financeiro" itemValue="Financeiro"
+								class="dropdown-item" />
+							<f:selectItem itemLabel="RH" itemValue="RH" class="dropdown-item" />
+							<f:selectItem itemLabel="Marketing" itemValue="Marketing"
+								class="dropdown-item" />
+							<f:selectItem itemLabel="SAC" itemValue="SAC"
+								class="dropdown-item" />
+							<f:selectItem itemLabel="Outros" itemValue="Outros"
+								class="dropdown-item" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<h:outputLabel id="setor2" value="Prioridade: "
+						styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:selectOneMenu value="#{chamadoBean.chamado.nivel}"
+							style="width:200px" data-toggle="dropdown"
+							styleClass="form-control radius-none" required="true" requiredMessage="Informe um Nivel">
+							<f:selectItem itemLabel="Selecione a Prioridade"
+								noSelectionOption="true" class="dropdown-item" />
+							<f:selectItem itemLabel="Baixo" itemValue="Baixo"
+								class="dropdown-item" />
+							<f:selectItem itemLabel="Médio" itemValue="Médio"
+								class="dropdown-item" />
+							<f:selectItem itemLabel="Alto" itemValue="Alto"
+								class="dropdown-item" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel id="funcionario" value="Funcionario: "
+						styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:selectOneMenu value="#{chamadoBean.chamado.funcionario}"
+							converter="#{converterFuncionario}" style="width:200px"
+							data-toggle="dropdown" styleClass="form-control radius-none" required="true" requiredMessage="Informe um Funcionario">
+
+							<f:selectItem itemLabel="Selecione Funcionario"
+								noSelectionOption="true" class="dropdown-item" />
+							<f:selectItems value="#{funcionarioBean.listarFuncionarios()}"
+								var="funcionario" itemValue="#{funcionario}"
+								itemLabel="#{funcionario.nome}" class="dropdown-item" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel id="Descricao" value="Descricao: "
+						styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:inputTextarea rows="7" cols="7" styleClass="form-control"
+							value="#{chamadoBean.chamado.descricao}"
+							pt:placeholder="Descreva aqui os detalhes do seu chamado..." required="true" requiredMessage="Informe uma Descricao para o Chamado"/>
+					</div>
+				</div>
+
+
+
+
+				<div id="Button" class="col-sm-11">
+					<div class="form-group">
+						<h:commandButton
+							action="#{chamadoBean.salvar(chamadoBean.chamado)}"
+							value="Cadastrar" type="submit" styleClass="btn btn-success"
+							style="display:inline;margin:0 5px" />
+						<h:commandButton type="reset" value="Apagar"
+							styleClass="btn btn-info" style="display:inline;margin:05px"></h:commandButton>
+
+					</div>
+				</div>
+
+			</fieldset>
+		</h:form>
+
+
+		<script type="text/javascript">
+    $("#Cpf").mask("999.999.999-99");
+    $('#main').validate({
+        rules: {
+            'Descricao': {
+                required: true,
+                minlength: 3
+            },
+            'Categoria': {
+                required: true,
+                minlength: 3
+            }
+        },
+        messages: {	
+            'Descricao': {
+                required: '* Informe uma Descricao para o chamado',
+                minlength: '* Por favor, insira pelo menos 3 caracteres'
+            },
+            'Categoria': {
+                required: '* Digite uma Categoria',
+                minlength: '* Por favor, insira pelo menos 3 caracteres'
+        	}
+        }
+    });
+   
+</script>
+	</ui:define>
+</ui:composition>
+</html>

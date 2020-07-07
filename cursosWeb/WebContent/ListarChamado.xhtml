@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/Templates/Template.xhtml">
+
+	<ui:define name="conteudo">
+		<style type="text/css">
+.baixoStyle {
+	background-color: #228B22 !important;
+	background-image: none !important;
+}
+
+.medioStyle {
+	background-color: #DAA520 !important;
+	background-image: none !important;
+}
+
+.altoStyle {
+	background-color: #B22222 !important;
+	background-image: none !important;
+}
+</style>
+		<h:form title="Lista de Chamados" enctype="multipart/form-data"
+			styleClass="form-horizontal" id="main" class="main" prependId="false">
+			<fieldset>
+				<legend>Lista de Chamados</legend>
+				<p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+				<h:commandButton action="CadastrarChamado" value="Abrir Chamado"
+					styleClass="btn btn-success" style="display:inline;margin:0 5px">
+				</h:commandButton>
+				<br /> <br />
+
+
+				<p:tabView>
+					<p:tab title="Todos">
+						<p:dataTable id="myTable" value="#{chamadoBean.listarChamados()}"
+							var="chamado" style="margin-top:20px;margin-bottom:15px"
+							rowStyleClass="#{chamado.nivel eq 'Baixo' ? 'baixoStyle' : chamado.nivel eq 'Médio' ? 'medioStyle' :  chamado.nivel eq 'Alto' ? 'altoStyle' : null}"
+							styleClass="table table-striped">
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" N° Chamado " />
+								</f:facet>
+								<h:outputText value="#{chamado.id}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Funcionario " />
+								</f:facet>
+								<h:outputText value="#{chamado.funcionario.nome}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Nível " />
+								</f:facet>
+								<h:outputText value="#{chamado.nivel}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Setor " />
+								</f:facet>
+								<h:outputText value="#{chamado.setor}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Status " />
+								</f:facet>
+								<h:outputText value="#{chamado.status}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Criado " />
+								</f:facet>
+								<h:outputText value="#{chamado.dataCriacao}">
+									<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"
+										timeZone="GMT-3" />
+								</h:outputText>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Atendimento " />
+								</f:facet>
+								<h:outputText value="#{chamado.dataAtendimento}">
+									<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"
+										timeZone="GMT-3" />
+								</h:outputText>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Concluido " />
+								</f:facet>
+								<h:outputText value="#{chamado.dataConcluido}">
+									<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"
+										timeZone="GMT-3" />
+								</h:outputText>
+							</p:column>
+
+
+						</p:dataTable>
+					</p:tab>
+
+					<p:tab title="Abertos">
+						<p:dataTable id="myTable2"
+							value="#{chamadoBean.listarchamadoPorStatus('ABERTO')}"
+							var="chamado" styleClass="table table-hover table-striped"
+							style="margin-top:20px;margin-bottom:15px"
+							rowStyleClass="#{chamado.nivel eq 'Baixo' ? 'baixoStyle' : chamado.nivel eq 'Médio' ? 'medioStyle' :  chamado.nivel eq 'Alto' ? 'altoStyle' : null}">
+
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" N° Chamado " />
+								</f:facet>
+								<h:outputText value="#{chamado.id}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Funcionario Responsavel " />
+								</f:facet>
+								<h:outputText value="#{chamado.funcionario.nome}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Nível " />
+								</f:facet>
+								<h:outputText value="#{chamado.nivel}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Setor " />
+								</f:facet>
+								<h:outputText value="#{chamado.setor}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Status " />
+								</f:facet>
+								<h:outputText value="#{chamado.status}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Criado " />
+								</f:facet>
+								<h:outputText value="#{chamado.dataCriacao}">
+									<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"
+										timeZone="GMT-3" />
+								</h:outputText>
+							</p:column>
+
+
+						</p:dataTable>
+
+					</p:tab>
+					<p:tab title="Processando">
+						<p:dataTable id="myTable3"
+							value="#{chamadoBean.listarchamadoPorStatus('PROCESSANDO')}"
+							var="chamado" styleClass="table table-hover table-striped"
+							style="margin-top:20px;margin-bottom:15px"
+							rowStyleClass="#{chamado.nivel eq 'Baixo' ? 'baixoStyle' : chamado.nivel eq 'Médio' ? 'medioStyle' :  chamado.nivel eq 'Alto' ? 'altoStyle' : null}">
+
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" N° Chamado " />
+								</f:facet>
+								<h:outputText value="#{chamado.id}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Funcionario Responsavel " />
+								</f:facet>
+								<h:outputText value="#{chamado.funcionario.nome}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Nível " />
+								</f:facet>
+								<h:outputText value="#{chamado.nivel}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Setor " />
+								</f:facet>
+								<h:outputText value="#{chamado.setor}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Status " />
+								</f:facet>
+								<h:outputText value="#{chamado.status}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Criado " />
+								</f:facet>
+								<h:outputText value="#{chamado.dataCriacao}">
+									<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"
+										timeZone="GMT-3" />
+								</h:outputText>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Atendimento " />
+								</f:facet>
+								<h:outputText value="#{chamado.dataAtendimento}">
+									<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"
+										timeZone="GMT-3" />
+								</h:outputText>
+							</p:column>
+
+
+
+
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Concluido">
+						<p:dataTable id="myTable4"
+							value="#{chamadoBean.listarchamadoPorStatus('CONCLUIDO')}"
+							var="chamado" styleClass="table table-hover table-striped"
+							style="margin-top:20px;margin-bottom:15px"
+							rowStyleClass="#{chamado.nivel eq 'Baixo' ? 'baixoStyle' : chamado.nivel eq 'Médio' ? 'medioStyle' :  chamado.nivel eq 'Alto' ? 'altoStyle' : null}">
+
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" N° Chamado " />
+								</f:facet>
+								<h:outputText value="#{chamado.id}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Funcionario Responsavel " />
+								</f:facet>
+								<h:outputText value="#{chamado.funcionario.nome}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Nível " />
+								</f:facet>
+								<h:outputText value="#{chamado.nivel}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Setor " />
+								</f:facet>
+								<h:outputText value="#{chamado.setor}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Status " />
+								</f:facet>
+								<h:outputText value="#{chamado.status}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Criado " />
+								</f:facet>
+								<h:outputText value="#{chamado.dataCriacao}">
+									<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"
+										timeZone="GMT-3" />
+								</h:outputText>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Atendimento " />
+								</f:facet>
+								<h:outputText value="#{chamado.dataAtendimento}">
+									<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"
+										timeZone="GMT-3" />
+								</h:outputText>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value=" Concluido " />
+								</f:facet>
+								<h:outputText value="#{chamado.dataConcluido}">
+									<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"
+										timeZone="GMT-3" />
+								</h:outputText>
+							</p:column>
+
+						</p:dataTable>
+					</p:tab>
+				</p:tabView>
+
+			</fieldset>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

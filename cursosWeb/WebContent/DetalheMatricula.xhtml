@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/Templates/Template.xhtml">
+	<ui:define name="conteudo">
+		<h:form title="Alterar Status Matricula" enctype="multipart/form-data"
+			styleClass="form-horizontal" id="main" class="main" prependId="false">
+			<fieldset>
+				<legend>Detalhes Matricula do aluno: #{matriculaBean.matricula.usuario.nome.toUpperCase()}</legend>
+
+
+				<div class="form-group">
+					<h:outputLabel value="Matricula "
+						styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:outputText value="#{matriculaBean.matricula.id}"
+							styleClass="form-control " style="width:30%" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="Aluno" styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:outputText value="#{matriculaBean.matricula.usuario.nome}"
+							styleClass="form-control" style="width:30%" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="Curso" styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:inputText value="#{matriculaBean.matricula.curso.nome}"
+							styleClass="form-control" style="width:30%" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel id="status" value="Status: "
+						styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:selectOneMenu value="#{matriculaBean.matricula.status}"
+							style="width:200px" data-toggle="dropdown"
+							styleClass="form-control radius-none">
+
+							<f:selectItem itemLabel="Aprovado" class="dropdown-item"
+								itemValue="APROVADO" />
+
+							<f:selectItem itemLabel="Reprovado" class="dropdown-item"
+								itemValue="REPROVADO" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+
+				<br />
+				<div id="Button" class="col-sm-11">
+					<div class="form-group">
+						<h:commandButton action="#{matriculaBean.aprovar()}"
+							value="Aprovar" styleClass="btn btn-success"
+							style="display:inline;margin:05px">
+							<f:param name="idMatricula" value="#{matriculaBean.matricula.id}" />
+						</h:commandButton>
+						<h:commandButton action="#{matriculaBean.reprovar()}"
+							value="Reprovar" styleClass="btn btn-danger"
+							style="display:inline;margin:05px">
+							<f:param name="idMatricula" value="#{matriculaBean.matricula.id}" />
+						</h:commandButton>
+
+					</div>
+				</div>
+
+
+			</fieldset>
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>
+</html>
+

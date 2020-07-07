@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/Templates/Template.xhtml">
+	<ui:define name="conteudo">
+
+		<h:form title="Lista de Matricula" enctype="multipart/form-data"
+			styleClass="form-horizontal" id="main" class="main" prependId="false">
+			<fieldset>
+				<legend>Lista de Matricula </legend>
+				<div class="form-group">
+					<h:inputText id="myInput" type="text" styleClass="form-control"
+						style="width:20%" pt:placeholder="Search... " />
+				</div>
+
+				<p:dataTable id="myTable" value="#{matriculaBean.matriculas}"
+					var="matricula" styleClass="table table-striped"
+					style="margin-top:20px;margin-bottom:15px">
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" N° Matricula " />
+						</f:facet>
+						<h:outputText value="#{matricula.id}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Aluno " />
+						</f:facet>
+						<h:outputText value="#{matricula.usuario.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Curso " />
+						</f:facet>
+						<h:outputText value="#{matricula.curso.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value=" Professor " />
+						</f:facet>
+						<h:outputText value="#{matricula.usuario.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Status
+						<h:outputText value=" Status " />
+						</f:facet>
+						<h:outputText value="#{matricula.status}" />
+					</p:column>
+
+
+				</p:dataTable>
+
+			</fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/Templates/Template.xhtml">
+	<ui:define name="conteudo">
+		<script src="scripts/validador2.js"></script>
+
+		<h:form title="Cadastrar Usuario" enctype="multipart/form-data"
+			styleClass="form-horizontal" id="main" class="main" prependId="false">
+			<fieldset>
+				<legend>Cadastrar Usuario</legend>
+				<p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+				<div class="form-group">
+					<h:outputLabel value="Nome Completo"
+						styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:inputText value="#{usuarioBean.usuario.nome}"
+							styleClass="form-control " id="Nome" required="true"
+							style="width:30%" pt:placeholder="Nome Completo" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="Email" styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:inputText value="#{usuarioBean.usuario.email}"
+							styleClass="form-control " id="Email" required="true"
+							style="width:30%" pt:placeholder="email@email.com.br" />
+
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="Sexo" styleClass="control-label col-sm-2" />
+					<div class="form-check">
+						<h:selectOneRadio value="#{usuarioBean.usuario.sexo}" id="sexo"
+							required="true"
+							requiredMessage="O campo não pode estar em branco"
+							style="width:15%">
+							<f:selectItem itemLabel="Masculino" itemValue="Maculino"
+								class="form-check-input" />
+							<f:selectItem itemLabel="Feminino" itemValue="Feminino"
+								class="form-check-input" />
+						</h:selectOneRadio>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="CPF" styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:inputText value="#{usuarioBean.usuario.cpf}"
+							class="form-control " id="Cpf" style="width:20%"
+							pt:placeholder="000.000.000-00" required="true"/>
+
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="Idade" styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:inputText value="#{usuarioBean.usuario.idade}"
+							class="form-control " maxlength="3" type="number" id="idade"
+							style="width:5%" />
+						<h:message for="idade" style="color:red"></h:message>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="Telefone" styleClass="control-label col-sm-2" />
+					<div class="col-sm-10">
+						<h:inputText value="#{usuarioBean.usuario.telefone}"
+							class="form-control" id="Telefone" style="width:20%"
+							pt:placeholder="(99) 99999-9999" required="true"
+							requiredMessage="Infome um telefone para contato" />
+
+					</div>
+				</div>
+
+				<br />
+				<div id="Button" class="col-sm-11">
+					<div class="form-group">
+						<h:commandButton
+							action="#{usuarioBean.salvar(usuarioBean.usuario)}"
+							value="Cadastrar" type="submit" styleClass="btn btn-success"
+							style="display:inline;margin:0 5px" />
+						<h:commandButton type="reset" value="Apagar"
+							styleClass="btn btn-danger" style="display:inline;margin:0 5px"></h:commandButton>
+					</div>
+				</div>
+
+			</fieldset>
+		</h:form>
+
+
+		<script type="text/javascript">
+    $("#Cpf").mask("999.999.999-99");
+    $("#Telefone").mask("(99) 99999-9999");
+    $('#main').validate({
+        rules: {
+            'Nome': {
+                required: true,
+                minlength: 3
+            },
+            'Email': {
+                email: true,
+                required:true
+            },
+            'Cpf': {
+                Cpf: true,
+                required: true,
+                
+            }
+        },
+        messages: {	
+            'Nome': {
+                required: '* Digite um Nome',
+                minlength: '* Por favor, insira pelo menos 3 caracteres'
+            },
+            'Email': {
+                email: '* Digite um email valido',
+                required: '* Digite um email'
+            },
+            'Cpf': {
+                required: '* Digite seu CPF',
+                cpf: '* CPF Invalido'
+            }
+        }
+    });
+    
+ 
+   
+</script>
+		<script type="text/javascript">
+/*  <![CDATA[ */
+   // is the variable a non-negative integer less than 10?
+	   
+/*  ]]> */
+ </script>
+	</ui:define>
+</ui:composition>
+</html>
